@@ -1,0 +1,25 @@
+## Interface: 11508, 20505
+## Interface-Classic: 11508
+## Interface-TBC: 20505
+## Version: @project-version@
+## Title: Replus
+## Notes: Quality of Life options missing from Classic WoW
+## Author: Resist
+## SavedVariables: Config
+## OptionalDeps: Leatrix_Plus
+
+Core/Main.lua
+Core/UIFactory.lua
+Core/Utils.lua
+
+Modules/AnnounceInterrupt.lua
+Modules/AnnounceMiss.lua
+Modules/AutoTrack.lua
+Modules/ChatShortChannel.lua
+Modules/ChatURL.lua
+Modules/EnergyTick.lua
+Modules/FiveSecondRule.lua
+Modules/MeleeRangeCheck.lua
+Modules/OptionsPanel.lua
+Modules/ShamanBlue.lua
+Modules/StatusBar.lua
