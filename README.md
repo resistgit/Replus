@@ -15,13 +15,15 @@ Download from CurseForge: https://www.curseforge.com/wow/addons/replus
 ## Features
 
 - Status bar with FPS, latency, durability, current speed, and XP/h (hover for more details)
-- Blue Shamans
+- Blue Shamans for vanilla
 - Chat's short channel names, ability to copy URLs
 - Announce on interrupt
 - Announce on important skills miss
-- Mana/Energy tick
-- Five Second Rule
 - Auto track minerals/herbs
+- Mana/Energy tick for default UI
+- Five Second Rule for default UI
+- Target health for default UI
+- Melee range check
 
 ## License
 
