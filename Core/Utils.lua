@@ -3,7 +3,8 @@ local _, Addon = ...
 ---@param unit string
 ---@return boolean
 function Addon:IsMaxLevel(unit)
-	return UnitLevel(unit) == MAX_PLAYER_LEVEL_TABLE[GetExpansionLevel()]
+	local max = GetMaxLevelForExpansionLevel(GetExpansionLevel())
+	return UnitLevel(unit) == max
 end
 
 ---@param secs number

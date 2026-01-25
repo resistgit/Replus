@@ -2,7 +2,7 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
-	if not Config.fiveSecondRule then return end
+	if not Config.FiveSecondRule then return end
 
 	local _, class = UnitClass("player")
 	if class == "WARRIOR" then return end

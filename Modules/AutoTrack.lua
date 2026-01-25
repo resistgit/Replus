@@ -2,7 +2,7 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
-	if not Config.autoTrack then return end
+	if not Config.AutoTrack then return end
 
 	local FIND_MINERALS_ID = 2580 -- const
 	local FIND_HERBS_ID = 2383 -- const
@@ -17,12 +17,12 @@ function module:OnLoad()
 		if GetTrackingTexture() ~= nil then return end
 
 		-- Find Minerals
-		if IsSpellKnown(FIND_MINERALS_ID) then
+		if C_SpellBook.IsSpellInSpellBook(FIND_MINERALS_ID) then
 			CastSpellByID(FIND_MINERALS_ID)
 		end
 
 		-- Find Herbs
-		if IsSpellKnown(FIND_HERBS_ID) then
+		if C_SpellBook.IsSpellInSpellBook(FIND_HERBS_ID) then
 			CastSpellByID(FIND_HERBS_ID)
 		end
 	end)

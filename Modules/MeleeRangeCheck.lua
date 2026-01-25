@@ -2,7 +2,11 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
-  if not Config.meleeRangeCheck then return end
+  if
+      not Config.MeleeRangeCheck and
+      not Config.MeleeNotAttacking then
+    return
+  end
 
   local _, class = UnitClass("player")
   if class == "MAGE" then return end
@@ -14,7 +18,7 @@ function module:OnLoad()
   local ID_5YD_RANGE = 16114 -- const
 
   local text = UIParent:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-  text:SetFont(Addon.font, Addon.fontSize * 3, "OUTLINE")
+  text:SetFont(Config.Font, Config.MeleeRangeCheckFontSize, "OUTLINE")
   text:SetTextColor(0.8, 0.2, 0.2)
   text:ClearAllPoints()
   text:SetPoint("CENTER", 0, -40)
@@ -31,13 +35,17 @@ function module:OnLoad()
       return
     end
 
-    if IsCurrentSpell(ID_ATTACK) and not IsItemInRange(ID_5YD_RANGE, "target") then
+    if
+        Config.MeleeRangeCheck and
+        IsCurrentSpell(ID_ATTACK) and
+        not C_Item.IsItemInRange(ID_5YD_RANGE, "target")
+    then
       text:SetText("TOO FAR")
       text:Show()
       return
     end
 
-    if (class == "WARRIOR" or class == "ROGUE") and not IsCurrentSpell(ID_ATTACK) then
+    if Config.MeleeNotAttacking and not IsCurrentSpell(ID_ATTACK) then
       text:SetText("NOT ATTACKING")
       text:Show()
       return

@@ -2,7 +2,7 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
-	if not Config.announceInterrupt then return end
+	if not Config.AnnounceInterrupt then return end
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
@@ -31,6 +31,6 @@ function module:OnLoad()
 			channel = "PARTY"
 		end
 
-		SendChatMessage(msg, channel)
+		C_ChatInfo.SendChatMessage(msg, channel)
 	end)
 end

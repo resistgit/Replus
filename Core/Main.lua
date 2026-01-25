@@ -1,17 +1,22 @@
 local _, Addon = ...
 
-Addon.fontSize = 12
-Addon.font = "Fonts\\FRIZQT__.TTF"
-
 Addon.modules = {}
-Addon.cfgDefaults = {
-	announceInterrupt = true,
-	announceMiss = true,
-	autoTrack = true,
-	shamanBlue = true,
-	energyTick = true,
-	fiveSecondRule = true,
-	meleeRangeCheck = true,
+Addon.ConfigDefaults = {
+	AnnounceInterrupt = true,
+	AnnounceMiss = true,
+	AutoTrack = true,
+	ChatShortChannel = true,
+	ChatURL = true,
+	EnergyTick = true,
+	FiveSecondRule = true,
+	Font = "Fonts\\FRIZQT__.TTF",
+	MeleeNotAttacking = true,
+	MeleeRangeCheck = true,
+	MeleeRangeCheckFontSize = 36,
+	ShamanBlue = true,
+	StatusBar = true,
+	StatusBarFontSize = 12,
+	TargetHealth = true,
 }
 
 local interfaceVersion = select(4, GetBuildInfo())
@@ -28,7 +33,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
 	Config = Config or {}
-	Config = Addon:MergeTable(Config, Addon.cfgDefaults)
+	Config = Addon:MergeTable(Config, Addon.ConfigDefaults)
 
 	for _, module in pairs(Addon.modules) do
 		module:OnLoad()

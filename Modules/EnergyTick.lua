@@ -2,7 +2,7 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
-	if not Config.energyTick then return end
+	if not Config.EnergyTick then return end
 
 	local availbleClasses = {
 		["ROGUE"] = true,

@@ -2,7 +2,7 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
-	if not Config.announceMiss then return end
+	if not Config.AnnounceMiss then return end
 
 	local spellIds = {
 		-- Rogue
@@ -83,6 +83,6 @@ function module:OnLoad()
 			channel = "PARTY"
 		end
 
-		SendChatMessage(msg, channel)
+		C_ChatInfo.SendChatMessage(msg, channel)
 	end)
 end

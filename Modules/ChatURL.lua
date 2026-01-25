@@ -2,6 +2,8 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
+	if not Config.ChatURL then return end
+
 	local patterns = {
 		"(https?://%S+%.%S+)",
 		"(www%.%S+%.%S+)",

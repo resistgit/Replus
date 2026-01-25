@@ -2,6 +2,8 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
+	if not Config.ChatShortChannel then return end
+
 	local channels = {
 		{ "[%1]",  "%[%d+%. General %- (.+)[^%]]*%]" },
 		{ "[T]",   "%[%d+%. Trade[^%]]*%]" },

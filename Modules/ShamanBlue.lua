@@ -3,7 +3,7 @@ local _, Addon = ...
 local module = Addon:NewModule()
 function module:OnLoad()
 	if Addon.IsTBC then return end
-	if not Config.shamanBlue then return end
+	if not Config.ShamanBlue then return end
 
 	RAID_CLASS_COLORS["SHAMAN"]["r"] = 0.0
 	RAID_CLASS_COLORS["SHAMAN"]["g"] = 0.44

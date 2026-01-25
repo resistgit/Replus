@@ -2,13 +2,15 @@ local _, Addon = ...
 
 local module = Addon:NewModule()
 function module:OnLoad()
+	if not Config.StatusBar then return end
+
 	local _, class = UnitClass("player")
 	local classColor = RAID_CLASS_COLORS[class]
 	local defaultHex = "ffffff"
 
 	local function createTextAnchoredTo(relativeTo)
 		local text = UIParent:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		text:SetFont(Addon.font, Addon.fontSize + 1, "OUTLINE")
+		text:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
 		text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		text:ClearAllPoints()
 		if relativeTo == nil then
