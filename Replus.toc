@@ -22,5 +22,6 @@ Modules/FiveSecondRule.lua
 Modules/MeleeRangeCheck.lua
 Modules/OptionsPanel.lua
 Modules/ShamanBlue.lua
+Modules/StanceBarFix.lua
 Modules/StatusBar.lua
 Modules/TargetHealth.lua
