@@ -40,7 +40,8 @@ function module:OnLoad()
 		cb:SetChecked(Config.AnnounceMiss)
 	end
 
-	do -- Auto Track
+	-- Auto Track
+	if not Addon.IsTBC then
 		local cb = Addon.UIFactory:NewCheckbox("Auto Track Herbs/Minerals")
 		h = h - margin
 		cb:SetPoint("TOPLEFT", frame, 0, h)
