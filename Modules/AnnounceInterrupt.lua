@@ -15,12 +15,14 @@ function module:OnLoad()
 		local event = log[2]
 		local sourceGUID = log[4]
 		local destName = log[9]
+		local spellId = log[15]
 		local spellName = log[16]
+		local spellLink = GetSpellLink(spellId)
 
 		if (event ~= "SPELL_INTERRUPT") then return end
 		if (sourceGUID ~= UnitGUID("player")) then return end
 
-		local msg = "Interrupted " .. (spellName or destName)
+		local msg = "Interrupted " .. (spellLink or spellName or destName)
 
 		local channel
 		if IsInInstance() then
