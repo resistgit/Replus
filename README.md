@@ -25,6 +25,18 @@ Download from CurseForge: https://www.curseforge.com/wow/addons/replus
 - Target health for default UI
 - Melee range check
 
+### Equipment Manager helper
+
+There are a few commands to help using the native [Equipment Manager](https://warcraft.wiki.gg/wiki/Equipment_Manager):
+
+- `/showsets` - Show all sets
+    - alias: `/getsets`, `/allsets`
+- `/delset name` - Delete a set
+- `/saveset name` - Save current gear as a set
+- `/saveweapons name` - Save current weapons (slot 16 and 17) as a set
+    - alias: `/savew`, `/saveweap`, `/saveweapon`
+- `/equipset name` - Equip a set (native command)
+
 ## License
 
 [MIT](https://github.com/resistgit/Replus/blob/master/LICENSE)

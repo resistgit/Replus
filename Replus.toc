@@ -18,6 +18,7 @@ Modules/AutoTrack.lua
 Modules/ChatShortChannel.lua
 Modules/ChatURL.lua
 Modules/EnergyTick.lua
+Modules/EquipManager.lua
 Modules/FiveSecondRule.lua
 Modules/MeleeRangeCheck.lua
 Modules/OptionsPanel.lua
