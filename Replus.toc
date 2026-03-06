@@ -9,7 +9,6 @@
 ## OptionalDeps: Leatrix_Plus
 
 Core/Main.lua
-Core/UIFactory.lua
 Core/Utils.lua
 
 Modules/AnnounceInterrupt.lua
@@ -21,7 +20,7 @@ Modules/EnergyTick.lua
 Modules/EquipManager.lua
 Modules/FiveSecondRule.lua
 Modules/MeleeRangeCheck.lua
-Modules/OptionsPanel.lua
+Modules/SettingsPanel.lua
 Modules/ShamanBlue.lua
 Modules/StanceBarFix.lua
 Modules/StatusBar.lua

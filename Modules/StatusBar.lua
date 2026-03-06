@@ -8,8 +8,8 @@ function module:OnLoad()
 	local classColor = RAID_CLASS_COLORS[class]
 	local defaultHex = "ffffff"
 
-	local function createTextAnchoredTo(relativeTo)
-		local text = UIParent:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+	local function createTextAnchoredTo(name, relativeTo)
+		local text = UIParent:CreateFontString(name, "OVERLAY", "GameFontHighlight")
 		text:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
 		text:SetTextColor(classColor.r, classColor.g, classColor.b)
 		text:ClearAllPoints()
@@ -22,11 +22,11 @@ function module:OnLoad()
 		return text
 	end
 
-	local fpsText = createTextAnchoredTo()
-	local latencyText = createTextAnchoredTo(fpsText)
-	local durabilityText = createTextAnchoredTo(latencyText)
-	local speedText = createTextAnchoredTo(durabilityText)
-	local xpHourText = createTextAnchoredTo(speedText)
+	local fpsText = createTextAnchoredTo("Replus_StatusBar_FPS")
+	local latencyText = createTextAnchoredTo("Replus_StatusBar_Latency", fpsText)
+	local durabilityText = createTextAnchoredTo("Replus_StatusBar_Durability", latencyText)
+	local speedText = createTextAnchoredTo("Replus_StatusBar_MovSpeed", durabilityText)
+	local xpHourText = createTextAnchoredTo("Replus_StatusBar_XPHour", speedText)
 
 	-- FPS
 	local function setupFps()
@@ -174,4 +174,12 @@ function module:OnLoad()
 	setupDurability()
 	setupSpeed()
 	setupXpHour()
+end
+
+function module:OnChange()
+	_G["Replus_StatusBar_FPS"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
+	_G["Replus_StatusBar_Latency"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
+	_G["Replus_StatusBar_Durability"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
+	_G["Replus_StatusBar_MovSpeed"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
+	_G["Replus_StatusBar_XPHour"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
 end

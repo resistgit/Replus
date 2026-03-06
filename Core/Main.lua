@@ -19,6 +19,8 @@ Addon.ConfigDefaults = {
 	TargetHealth = true,
 }
 
+Addon.SettingsCategoryId = 0
+
 local interfaceVersion = select(4, GetBuildInfo())
 Addon.IsTBC = 20000 <= interfaceVersion and interfaceVersion <= 29999
 
@@ -27,6 +29,14 @@ function Addon:NewModule(name)
 	module.name = name
 	table.insert(Addon.modules, module)
 	return module
+end
+
+function Addon:OnSettingChange()
+	for _, module in pairs(Addon.modules) do
+		if module.OnChange ~= nil then
+			module:OnChange()
+		end
+	end
 end
 
 local f = CreateFrame("Frame")

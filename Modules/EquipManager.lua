@@ -1,5 +1,9 @@
+local _, Addon = ...
+
 SLASH_REPLUS1 = "/replus"
 SlashCmdList["REPLUS"] = function()
+	Settings.OpenToCategory(Addon.SettingsCategoryId)
+
 	DEFAULT_CHAT_FRAME:AddMessage("|cffffff00[Replus]|r help:")
 
 	DEFAULT_CHAT_FRAME:AddMessage("- |cffff8000/showsets|r - Show all sets")
