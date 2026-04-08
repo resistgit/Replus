@@ -7,6 +7,7 @@ Addon.ConfigDefaults = {
 	AutoTrack = true,
 	ChatShortChannel = true,
 	ChatURL = true,
+	FoodDrinkMacros = true,
 	EnergyTick = true,
 	FiveSecondRule = true,
 	Font = "Fonts\\FRIZQT__.TTF",

@@ -19,6 +19,7 @@ Modules/ChatURL.lua
 Modules/EnergyTick.lua
 Modules/EquipManager.lua
 Modules/FiveSecondRule.lua
+Modules/FoodDrinkMacros.lua
 Modules/MeleeRangeCheck.lua
 Modules/SettingsPanel.lua
 Modules/ShamanBlue.lua

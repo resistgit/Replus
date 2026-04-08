@@ -126,17 +126,18 @@ function module:OnLoad()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
+	-- Food/Drinks Macros
 	do
 		local setting = Settings.RegisterAddOnSetting(
 			category,
-			"MeleeNotAttacking",
-			"MeleeNotAttacking",
+			"FoodDrinkMacros",
+			"FoodDrinkMacros",
 			Config,
-			type(Addon.ConfigDefaults.MeleeNotAttacking),
-			"Melee Not Attacking Check",
-			Addon.ConfigDefaults.MeleeNotAttacking
+			type(Addon.ConfigDefaults.FoodDrinkMacros),
+			"Food/Drinks Macros",
+			Addon.ConfigDefaults.FoodDrinkMacros
 		)
-		local tooltip = "Alert whenever you're in combat and not attacking."
+		local tooltip = "Create macros for food and drinks using the best available (Level 55+)."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
