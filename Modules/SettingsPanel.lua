@@ -14,7 +14,7 @@ function module:OnLoad()
 			"AnnounceInterrupt",
 			Config,
 			type(Addon.ConfigDefaults.AnnounceInterrupt),
-			"Announce on Interrupt",
+			"Announce Interrupt",
 			Addon.ConfigDefaults.AnnounceInterrupt
 		)
 		local tooltip = "Announce on group after interrupting spells."
@@ -140,33 +140,37 @@ function module:OnLoad()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
+	-- Melee Check
 	do
-		local setting = Settings.RegisterAddOnSetting(
+		local cbSetting = Settings.RegisterAddOnSetting(
 			category,
-			"MeleeRangeCheck",
-			"MeleeRangeCheck",
+			"MeleeCheck",
+			"MeleeCheck",
 			Config,
-			type(Addon.ConfigDefaults.MeleeRangeCheck),
-			"Melee Range Check",
-			Addon.ConfigDefaults.MeleeRangeCheck
+			type(Addon.ConfigDefaults.MeleeCheck),
+			"Melee Check",
+			Addon.ConfigDefaults.MeleeCheck
 		)
-		local tooltip = "Alert whenever you're out of range to attack."
-		Settings.CreateCheckbox(category, setting, tooltip)
-	end
+		local cbTooltip = "Alert whenever you're out of range for auto attacks."
 
-	do
-		local setting = Settings.RegisterAddOnSetting(
+		local sliderSetting = Settings.RegisterAddOnSetting(
 			category,
-			"MeleeRangeCheckFontSize",
-			"MeleeRangeCheckFontSize",
+			"MeleeCheckFontSize",
+			"MeleeCheckFontSize",
 			Config,
-			type(Addon.ConfigDefaults.MeleeRangeCheckFontSize),
+			type(Addon.ConfigDefaults.MeleeCheckFontSize),
 			"Melee Check Font Size",
-			Addon.ConfigDefaults.MeleeRangeCheckFontSize
+			Addon.ConfigDefaults.MeleeCheckFontSize
 		)
+		sliderSetting:SetValueChangedCallback(Addon.OnSettingChange)
 		local options = Settings.CreateSliderOptions(1, 99, 1)
 		options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right)
-		Settings.CreateSlider(category, setting, options)
+		local sliderTooltip = "Melee check font size."
+
+		local initializer = CreateSettingsCheckboxSliderInitializer(
+			cbSetting, "Melee Check", cbTooltip,
+			sliderSetting, options, "Melee Check", sliderTooltip)
+		layout:AddInitializer(initializer)
 	end
 
 	-- Status Bar
