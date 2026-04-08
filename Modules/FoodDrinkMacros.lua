@@ -68,7 +68,7 @@ local drinkPrio = {
 
 local module = Addon:NewModule()
 function module:OnLoad()
-	if not Config.EatDrinkMacros then return end
+	if not Config.FoodDrinkMacros then return end
 	if UnitLevel("player") < 55 then return end
 
 	local macroNameFood = "ReplusFood"
@@ -133,6 +133,7 @@ function module:OnLoad()
 	end
 
 	local pending = false
+	update()
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("BAG_UPDATE")
