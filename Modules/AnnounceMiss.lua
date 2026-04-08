@@ -17,9 +17,7 @@ function module:OnLoad()
 		355, -- Taunt
 		694, -- Mocking Blow
 		6552, -- Pummel
-
-		-- Shaman
-		8042, -- Earth Shock
+		12809, -- Concussion Blow
 
 		-- Mage
 		2139, -- Counterspell
@@ -27,11 +25,15 @@ function module:OnLoad()
 		-- Druid
 		5211, -- Bash
 		6795, -- Growl
+		9005, -- Pounce
+		22570, -- Maim
 
 		-- Hunter
 		5384, -- Feign Death
 		19386, -- Wyvern Sting
 		19503, -- Scatter Shot
+		19801, -- Tranquilizing Shot
+		34490, -- Silencing Shot
 
 		-- Warlock
 		6789, -- Death Coil
@@ -67,12 +69,13 @@ function module:OnLoad()
 		local event = log[2]
 		local sourceGUID = log[4]
 		local spellName = log[13]
+		local missType = log[15]
 
 		if (event ~= "SPELL_MISSED") then return end
 		if (sourceGUID ~= UnitGUID("player") and sourceGUID ~= UnitGUID("pet")) then return end
 		if (not spellNames[spellName]) then return end
 
-		local msg = spellName .. " Miss!"
+		local msg = ">> " .. spellName .. " " .. missType .. " <<"
 
 		local channel
 		if IsInInstance() then
