@@ -37,6 +37,8 @@ SLASH_SAVESET1 = "/saveset"
 SlashCmdList["SAVESET"] = function(set)
 	C_EquipmentSet.ClearIgnoredSlotsForSave()
 	C_EquipmentSet.CreateEquipmentSet(set)
+	C_EquipmentSet.IgnoreSlotForSave(INVSLOT_BODY) -- ignore shirt
+	C_EquipmentSet.IgnoreSlotForSave(INVSLOT_TABARD) -- ignore tabard
 	C_EquipmentSet.SaveEquipmentSet(C_EquipmentSet.GetEquipmentSetID(set))
 
 	DEFAULT_CHAT_FRAME:AddMessage("|cffffff00[Replus]|r |cff00ff00" .. set .. "|r set saved")
