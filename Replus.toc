@@ -16,12 +16,10 @@ Modules/AnnounceMiss.lua
 Modules/AutoTrack.lua
 Modules/ChatShortChannel.lua
 Modules/ChatURL.lua
-Modules/EnergyTick.lua
 Modules/EquipManager.lua
-Modules/FiveSecondRule.lua
 Modules/FoodDrinkMacros.lua
 Modules/MeleeRangeCheck.lua
-Modules/SettingsPanel.lua
+Modules/ServerTick.lua
 Modules/ShamanBlue.lua
 Modules/StanceBarFix.lua
 Modules/StatusBar.lua

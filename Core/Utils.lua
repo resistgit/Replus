@@ -43,35 +43,6 @@ function Addon:Clamp(value, min, max)
 	return math.min(max, math.max(min, value))
 end
 
----@param spellId number any rank
----@return boolean hasBuff, number rank
-function Addon:PlayerHasBuff(spellId)
-	-- localized spell name (for non-english clients)
-	local spell = C_Spell.GetSpellInfo(spellId)
-
-	if spell == nil then
-		return false, 0
-	end
-
-	for i = 1, 40 do
-		local aura = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
-		if aura == nil then break end
-
-		if aura.name == spell.name then
-			local subtext = GetSpellSubtext(aura.spellId)
-			if not subtext then
-				return true, 1
-			end
-
-			-- rank from text, did not find an API to get it
-			local rank = tonumber(string.match(subtext, "%d+")) or 1
-			return true, rank
-		end
-	end
-
-	return false, 0
-end
-
 --- Merge keys in t2 into t1 (t1 has priority)
 ---@param t1 table
 ---@param t2 table
