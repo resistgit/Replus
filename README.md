@@ -14,16 +14,16 @@ Download from CurseForge: https://www.curseforge.com/wow/addons/replus
 
 ## Features
 
-- Status bar with FPS, latency, durability, current speed, and XP/h (hover for more details)
-- Blue Shamans for vanilla
-- Chat's short channel names, ability to copy URLs
-- Announce on interrupt
 - Announce on important skills miss
-- Auto track minerals/herbs
+- Announce on interrupt
+- Auto track minerals/herbs for vanilla
+- Blue Shamans for vanilla
+- Chat's short channel names, able to copy URLs
 - Mana/Energy tick for default UI
-- Five Second Rule for default UI
 - Target health for default UI
-- Melee range check
+- Melee check, out of range and/or not attacking
+- Smart macros for Food, Drink and Healthstone, to use the best available
+- Status bar with FPS, latency, durability, current speed, and XP/h
 
 ### Equipment Manager helper
 
