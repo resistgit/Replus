@@ -56,3 +56,21 @@ function Addon:MergeTable(t1, t2)
 	end
 	return copy
 end
+
+--- Returns a table with all bag items id.
+---@return table
+function Addon:BagItems()
+	local items = {}
+
+	for bag = 0, NUM_BAG_SLOTS do
+		for slot = 1, C_Container.GetContainerNumSlots(bag) do
+			local itemId = C_Container.GetContainerItemID(bag, slot)
+
+			if itemId then
+				items[itemId] = true
+			end
+		end
+	end
+
+	return items
+end

@@ -68,45 +68,20 @@ local drinkPrio = {
 
 local module = Addon:NewModule()
 function module:OnLoad()
-	if not Config.FoodDrinkMacros then return end
+	if not Config.MacroFoodDrink then return end
 	if UnitLevel("player") < 55 then return end
 
 	local macroNameFood = "ReplusFood"
 	local macroNameDrink = "ReplusDrink"
 
-	local foodSet = {}
-	for _, id in ipairs(foodPrio) do
-		foodSet[id] = true
-	end
-
-	local drinkSet = {}
-	for _, id in ipairs(drinkPrio) do
-		drinkSet[id] = true
-	end
-
 	local function update()
-		local foodOwned = {}
-		local drinkOwned = {}
-
-		for bag = 0, NUM_BAG_SLOTS do
-			for slot = 1, C_Container.GetContainerNumSlots(bag) do
-				local itemId = C_Container.GetContainerItemID(bag, slot)
-
-				if itemId and foodSet[itemId] then
-					foodOwned[itemId] = true
-				end
-
-				if itemId and drinkSet[itemId] then
-					drinkOwned[itemId] = true
-				end
-			end
-		end
+		local bagItems = Addon:BagItems()
 
 		local icon = "INV_MISC_QUESTIONMARK"
 		local perChar = nil
 
 		for _, itemId in ipairs(foodPrio) do
-			if foodOwned[itemId] then
+			if bagItems[itemId] then
 				local body = "#showtooltip\n/use item:" .. itemId
 				local macroId = GetMacroIndexByName(macroNameFood)
 				if macroId > 0 then
@@ -119,7 +94,7 @@ function module:OnLoad()
 		end
 
 		for _, itemId in ipairs(drinkPrio) do
-			if drinkOwned[itemId] then
+			if bagItems[itemId] then
 				local body = "#showtooltip\n/use item:" .. itemId
 				local macroId = GetMacroIndexByName(macroNameDrink)
 				if macroId > 0 then
@@ -132,8 +107,7 @@ function module:OnLoad()
 		end
 	end
 
-	local pending = false
-	update()
+	local pending = true
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("BAG_UPDATE")
@@ -145,7 +119,7 @@ function module:OnLoad()
 		if not pending then return end
 		if UnitAffectingCombat("player") then return end
 
-		pending = false
 		update()
+		pending = false
 	end)
 end

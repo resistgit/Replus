@@ -17,7 +17,8 @@ Modules/AutoTrack.lua
 Modules/ChatShortChannel.lua
 Modules/ChatURL.lua
 Modules/EquipManager.lua
-Modules/FoodDrinkMacros.lua
+Modules/MacroFoodDrink.lua
+Modules/MacroHealthstone.lua
 Modules/MeleeRangeCheck.lua
 Modules/ServerTick.lua
 Modules/ShamanBlue.lua
