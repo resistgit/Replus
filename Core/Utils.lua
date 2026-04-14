@@ -43,6 +43,18 @@ function Addon:Clamp(value, min, max)
 	return math.min(max, math.max(min, value))
 end
 
+---@param n number
+---@return number
+function Addon:Round(n)
+	if not n then return 0 end
+
+	if n < 0 then
+		return math.ceil(n - 0.5)
+	end
+
+	return math.floor(n + 0.5)
+end
+
 --- Merge keys in t2 into t1 (t1 has priority)
 ---@param t1 table
 ---@param t2 table

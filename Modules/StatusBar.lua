@@ -82,7 +82,7 @@ function module:OnLoad()
 		local speed = 0
 
 		local function updateSpeed()
-			speed = GetUnitSpeed("player") / 7 * 100
+			speed = Addon:Round(GetUnitSpeed("player") / 7 * 100)
 			speedText:SetText(format("|c00%s%d%%|r speed", defaultHex, speed))
 		end
 
