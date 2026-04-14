@@ -73,7 +73,7 @@ function module:OnLoad()
 			"ChatShortChannel",
 			Config,
 			type(Addon.ConfigDefaults.ChatShortChannel),
-			"Chat Short Channel Names",
+			"Chat: Short Channel Names",
 			Addon.ConfigDefaults.ChatShortChannel
 		)
 		local tooltip =
@@ -89,55 +89,55 @@ function module:OnLoad()
 			"ChatURL",
 			Config,
 			type(Addon.ConfigDefaults.ChatURL),
-			"Chat Clickable URLs",
+			"Chat: Clickable URLs",
 			Addon.ConfigDefaults.ChatURL
 		)
 		local tooltip = "Add URL to chat box, may not work with other chat addon."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
-	-- Energy Tick
+	-- Server Tick
 	do
 		local setting = Settings.RegisterAddOnSetting(
 			category,
-			"EnergyTick",
-			"EnergyTick",
+			"ServerTick",
+			"ServerTick",
 			Config,
-			type(Addon.ConfigDefaults.EnergyTick),
-			"Energy Tick",
-			Addon.ConfigDefaults.EnergyTick
+			type(Addon.ConfigDefaults.ServerTick),
+			"Energy/Mana Tick",
+			Addon.ConfigDefaults.ServerTick
 		)
-		local tooltip = "Show energy ticks for Rogues and Druids in Cat Form."
+		local tooltip = "Show energy and/or mana tick."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
-	-- Mana Tick / Five Second Rule
+	-- Macro Food/Drink
 	do
 		local setting = Settings.RegisterAddOnSetting(
 			category,
-			"FiveSecondRule",
-			"FiveSecondRule",
+			"MacroFoodDrink",
+			"MacroFoodDrink",
 			Config,
-			type(Addon.ConfigDefaults.FiveSecondRule),
-			"Mana Tick / Five Second Rule",
-			Addon.ConfigDefaults.FiveSecondRule
+			type(Addon.ConfigDefaults.MacroFoodDrink),
+			"Macro: Food/Drink",
+			Addon.ConfigDefaults.MacroFoodDrink
 		)
-		local tooltip = "Show mana tick and five second rule for mana classes."
+		local tooltip = "Create macros for food and drink to use the best available (Level 55+)."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
-	-- Food/Drinks Macros
+	-- Macro Healthstone
 	do
 		local setting = Settings.RegisterAddOnSetting(
 			category,
-			"FoodDrinkMacros",
-			"FoodDrinkMacros",
+			"MacroHealthstone",
+			"MacroHealthstone",
 			Config,
-			type(Addon.ConfigDefaults.FoodDrinkMacros),
-			"Food/Drinks Macros",
-			Addon.ConfigDefaults.FoodDrinkMacros
+			type(Addon.ConfigDefaults.MacroHealthstone),
+			"Macro: Healthstone",
+			Addon.ConfigDefaults.MacroHealthstone
 		)
-		local tooltip = "Create macros for food and drinks using the best available (Level 55+)."
+		local tooltip = "Create macro for healthstone to use the best available."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
@@ -160,7 +160,7 @@ function module:OnLoad()
 			"MeleeCheckFontSize",
 			Config,
 			type(Addon.ConfigDefaults.MeleeCheckFontSize),
-			"Melee Check Font Size",
+			"Melee Check: Font Size",
 			Addon.ConfigDefaults.MeleeCheckFontSize
 		)
 		sliderSetting:SetValueChangedCallback(Addon.OnSettingChange)
@@ -193,7 +193,7 @@ function module:OnLoad()
 			"StatusBarFontSize",
 			Config,
 			type(Addon.ConfigDefaults.StatusBarFontSize),
-			"Status Bar Font Size",
+			"Status Bar: Font Size",
 			Addon.ConfigDefaults.StatusBarFontSize
 		)
 		sliderSetting:SetValueChangedCallback(Addon.OnSettingChange)

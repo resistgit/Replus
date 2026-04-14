@@ -11,6 +11,8 @@
 Core/Main.lua
 Core/Utils.lua
 
+Settings/Settings.lua
+
 Modules/AnnounceInterrupt.lua
 Modules/AnnounceMiss.lua
 Modules/AutoTrack.lua
