@@ -21,7 +21,7 @@ Modules/ChatURL.lua
 Modules/EquipManager.lua
 Modules/MacroFoodDrink.lua
 Modules/MacroHealthstone.lua
-Modules/MeleeRangeCheck.lua
+Modules/MeleeCheck.lua
 Modules/ServerTick.lua
 Modules/ShamanBlue.lua
 Modules/StanceBarFix.lua
