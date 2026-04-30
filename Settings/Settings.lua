@@ -222,35 +222,21 @@ function module.OnLoad()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
-	-- CVar PreviewTalents
+	-- CVar Preview Talents
 	do
-		local setting = Settings.RegisterAddOnSetting(
-			category,
-			"CVarPreviewTalents",
-			"CVarPreviewTalents",
-			Config,
-			type(Addon.ConfigDefaults.CVarPreviewTalents),
-			"CVar: Preview Talents",
-			Addon.ConfigDefaults.CVarPreviewTalents
+		local setting = Settings.RegisterCVarSetting(
+			category, "previewTalentsOption", "boolean", "CVar: Preview Talents"
 		)
-		setting:SetValueChangedCallback(Addon.OnSettingChange)
 		local tooltip = "Allows to plan character talent builds before committing."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
-	-- CVar UnitTitle
+	-- CVar Players Titles
 	do
-		local setting = Settings.RegisterAddOnSetting(
-			category,
-			"CVarUnitTitle",
-			"CVarUnitTitle",
-			Config,
-			type(Addon.ConfigDefaults.CVarUnitTitle),
-			"CVar: Players Titles",
-			Addon.ConfigDefaults.CVarUnitTitle
+		local setting = Settings.RegisterCVarSetting(
+			category, "UnitNamePlayerPVPTitle", "boolean", "CVar: Players Titles"
 		)
-		setting:SetValueChangedCallback(Addon.OnSettingChange)
-		local tooltip = "Show title of players."
+		local tooltip = "Show title of all players."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
