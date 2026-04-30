@@ -32,8 +32,8 @@ local prio = {
 	5512,
 }
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	if not Config.MacroHealthstone then return end
 
 	local macroName = "ReplusHS"
@@ -41,7 +41,7 @@ function module:OnLoad()
 	local perChar = nil
 
 	local function update()
-		local bagItems = Addon:BagItems()
+		local bagItems = Addon.BagItems()
 
 		for _, itemId in ipairs(prio) do
 			if bagItems[itemId] then
@@ -67,7 +67,7 @@ function module:OnLoad()
 
 	C_Timer.NewTicker(0.4, function()
 		if not pending then return end
-		if UnitAffectingCombat("player") then return end
+		if InCombatLockdown() then return end
 
 		update()
 		pending = false

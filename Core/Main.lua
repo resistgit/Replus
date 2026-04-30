@@ -24,17 +24,17 @@ Addon.SettingsCategoryId = 0
 local interfaceVersion = select(4, GetBuildInfo())
 Addon.IsTBC = 20000 <= interfaceVersion and interfaceVersion <= 29999
 
-function Addon:NewModule(name)
+function Addon.NewModule(name)
 	local module = {}
 	module.name = name
 	table.insert(Addon.modules, module)
 	return module
 end
 
-function Addon:OnSettingChange()
+function Addon.OnSettingChange()
 	for _, module in pairs(Addon.modules) do
 		if module.OnChange ~= nil then
-			module:OnChange()
+			module.OnChange()
 		end
 	end
 end
@@ -43,10 +43,10 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
 	Config = Config or {}
-	Config = Addon:MergeTable(Config, Addon.ConfigDefaults)
+	Config = Addon.MergeTable(Config, Addon.ConfigDefaults)
 
 	for _, module in pairs(Addon.modules) do
-		module:OnLoad()
+		module.OnLoad()
 	end
 
 	f:UnregisterAllEvents()

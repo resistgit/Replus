@@ -2,17 +2,17 @@ local _, Addon = ...
 
 ---@param unit string
 ---@return boolean
-function Addon:IsMaxLevel(unit)
+function Addon.IsMaxLevel(unit)
 	local max = GetMaxLevelForExpansionLevel(GetExpansionLevel())
 	return UnitLevel(unit) == max
 end
 
 ---@param secs number
-function Addon:FormatTime(secs)
-	local NINETY_MINUTES = 5400 -- const
-	local ONE_DAY = 86400    -- const
+function Addon.FormatTime(secs)
+	local NINETY_MINUTES = 5400
+	local ONE_DAY = 86400
 
-	if Addon:IsInf(secs) then
+	if Addon.IsInf(secs) then
 		return "..."
 	end
 
@@ -32,20 +32,20 @@ function Addon:FormatTime(secs)
 end
 
 ---@param value number
-function Addon:IsInf(value)
+function Addon.IsInf(value)
 	return value == math.huge or value == -math.huge
 end
 
 ---@param value number
 ---@param min number
 ---@param max number
-function Addon:Clamp(value, min, max)
+function Addon.Clamp(value, min, max)
 	return math.min(max, math.max(min, value))
 end
 
 ---@param n number
 ---@return number
-function Addon:Round(n)
+function Addon.Round(n)
 	if not n then return 0 end
 
 	if n < 0 then
@@ -59,7 +59,7 @@ end
 ---@param t1 table
 ---@param t2 table
 ---@return table
-function Addon:MergeTable(t1, t2)
+function Addon.MergeTable(t1, t2)
 	local copy = CopyTable(t1)
 	for k, v in pairs(t2) do
 		if copy[k] == nil then
@@ -71,7 +71,7 @@ end
 
 --- Returns a table with all bag items id.
 ---@return table
-function Addon:BagItems()
+function Addon.BagItems()
 	local items = {}
 
 	for bag = 0, NUM_BAG_SLOTS do

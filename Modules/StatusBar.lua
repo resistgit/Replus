@@ -1,7 +1,7 @@
 local _, Addon = ...
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	if not Config.StatusBar then return end
 
 	local _, class = UnitClass("player")
@@ -82,7 +82,7 @@ function module:OnLoad()
 		local speed = 0
 
 		local function updateSpeed()
-			speed = Addon:Round(GetUnitSpeed("player") / 7 * 100)
+			speed = Addon.Round(GetUnitSpeed("player") / 7 * 100)
 			speedText:SetText(format("|c00%s%d%%|r speed", defaultHex, speed))
 		end
 
@@ -91,7 +91,7 @@ function module:OnLoad()
 
 	-- XP/h
 	local function setupXpHour()
-		if Addon:IsMaxLevel("player") then return end
+		if Addon.IsMaxLevel("player") then return end
 
 		local started = GetServerTime()
 		local xpGainedTotal = 0
@@ -112,7 +112,7 @@ function module:OnLoad()
 		end)
 
 		local function update()
-			if Addon:IsMaxLevel("player") then return end
+			if Addon.IsMaxLevel("player") then return end
 
 			local xp = UnitXP("player")
 			local xpGained = xp - xpPrevious
@@ -141,11 +141,11 @@ function module:OnLoad()
 				GameTooltip:AddLine("Rested: " .. format("|c00%s%d%%|r", defaultHex, restedPercent))
 			end
 
-			if not Addon:IsInf(levelIn) then
-				GameTooltip:AddLine("Leveling in: " .. format("|c00%s%s|r", defaultHex, Addon:FormatTime(levelIn)))
+			if not Addon.IsInf(levelIn) then
+				GameTooltip:AddLine("Leveling in: " .. format("|c00%s%s|r", defaultHex, Addon.FormatTime(levelIn)))
 			end
 
-			GameTooltip:AddLine("Elapsed: " .. format("|c00%s%s|r", defaultHex, Addon:FormatTime(elapsed)))
+			GameTooltip:AddLine("Elapsed: " .. format("|c00%s%s|r", defaultHex, Addon.FormatTime(elapsed)))
 			GameTooltip:AddLine("(Click to reset session)", 0.6, 0.6, 0.6)
 			GameTooltip:Show()
 		end)
@@ -176,7 +176,7 @@ function module:OnLoad()
 	setupXpHour()
 end
 
-function module:OnChange()
+function module.OnChange()
 	_G["Replus_StatusBar_FPS"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
 	_G["Replus_StatusBar_Latency"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")
 	_G["Replus_StatusBar_Durability"]:SetFont(Config.Font, Config.StatusBarFontSize, "OUTLINE")

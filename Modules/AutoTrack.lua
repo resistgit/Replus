@@ -1,12 +1,12 @@
 local _, Addon = ...
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	if Addon.IsTBC then return end
 	if not Config.AutoTrack then return end
 
-	local FIND_MINERALS_ID = 2580 -- const
-	local FIND_HERBS_ID = 2383 -- const
+	local FIND_MINERALS_ID = 2580
+	local FIND_HERBS_ID = 2383
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("PLAYER_UNGHOST")

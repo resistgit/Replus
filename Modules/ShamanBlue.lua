@@ -1,7 +1,7 @@
 local _, Addon = ...
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	if Addon.IsTBC then return end
 	if not Config.ShamanBlue then return end
 

@@ -1,7 +1,7 @@
 local _, Addon = ...
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
     if not StanceBar then return end
 
     local function stanceBarFix()

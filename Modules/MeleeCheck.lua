@@ -1,7 +1,7 @@
 local _, Addon = ...
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	if not Config.MeleeCheck then return end
 
 	local INTERVAL = 0.4

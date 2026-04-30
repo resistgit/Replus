@@ -1,7 +1,7 @@
 local _, Addon = ...
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	if not Config.ServerTick then return end
 
 	local _, class = UnitClass("player")
@@ -64,7 +64,7 @@ function module:OnLoad()
 			return
 		end
 
-		local progress = Addon:Clamp((TICK_INTERVAL - timeLeft) / TICK_INTERVAL, 0, 1)
+		local progress = Addon.Clamp((TICK_INTERVAL - timeLeft) / TICK_INTERVAL, 0, 1)
 		self:SetValue(progress * 100)
 
 		local sparkX = progress * self:GetWidth()

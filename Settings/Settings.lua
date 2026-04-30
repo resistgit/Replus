@@ -1,7 +1,7 @@
 local _, Addon = ...
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	local category, layout = Settings.RegisterVerticalLayoutCategory("Replus")
 	Settings.RegisterAddOnCategory(category)
 	Addon.SettingsCategoryId = category:GetID()

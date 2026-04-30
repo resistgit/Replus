@@ -67,7 +67,8 @@ SlashCmdList["SAVEWEAPONS"] = function(set)
 end
 
 ---@param opts string
----@return string|nil, table|nil
+---@return string?
+---@return table?
 local function parseSlots(opts)
 	local set = ""
 	local slots = {}

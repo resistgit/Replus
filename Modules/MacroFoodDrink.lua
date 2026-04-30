@@ -66,8 +66,8 @@ local drinkPrio = {
 	32455, -- Star's Lament
 }
 
-local module = Addon:NewModule()
-function module:OnLoad()
+local module = Addon.NewModule()
+function module.OnLoad()
 	if not Config.MacroFoodDrink then return end
 	if UnitLevel("player") < 55 then return end
 
@@ -75,7 +75,7 @@ function module:OnLoad()
 	local macroNameDrink = "ReplusDrink"
 
 	local function update()
-		local bagItems = Addon:BagItems()
+		local bagItems = Addon.BagItems()
 
 		local icon = "INV_MISC_QUESTIONMARK"
 		local perChar = nil
@@ -117,7 +117,7 @@ function module:OnLoad()
 
 	C_Timer.NewTicker(0.4, function()
 		if not pending then return end
-		if UnitAffectingCombat("player") then return end
+		if InCombatLockdown() then return end
 
 		update()
 		pending = false
