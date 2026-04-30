@@ -14,7 +14,7 @@ function module.OnLoad()
 			"AnnounceInterrupt",
 			Config,
 			type(Addon.ConfigDefaults.AnnounceInterrupt),
-			"Announce Interrupt",
+			"Announce: Interrupt",
 			Addon.ConfigDefaults.AnnounceInterrupt
 		)
 		local tooltip = "Announce on group after interrupting spells."
@@ -29,7 +29,7 @@ function module.OnLoad()
 			"AnnounceMiss",
 			Config,
 			type(Addon.ConfigDefaults.AnnounceMiss),
-			"Announce Miss",
+			"Announce: Spell Miss",
 			Addon.ConfigDefaults.AnnounceMiss
 		)
 		local tooltip = "Announce on group after missing important spells, like interrupts, taunts, etc."
@@ -219,6 +219,38 @@ function module.OnLoad()
 			Addon.ConfigDefaults.TargetHealth
 		)
 		local tooltip = "Show target current/total health, may not work with custom frames."
+		Settings.CreateCheckbox(category, setting, tooltip)
+	end
+
+	-- CVar PreviewTalents
+	do
+		local setting = Settings.RegisterAddOnSetting(
+			category,
+			"CVarPreviewTalents",
+			"CVarPreviewTalents",
+			Config,
+			type(Addon.ConfigDefaults.CVarPreviewTalents),
+			"CVar: Preview Talents",
+			Addon.ConfigDefaults.CVarPreviewTalents
+		)
+		setting:SetValueChangedCallback(Addon.OnSettingChange)
+		local tooltip = "Allows to plan character talent builds before committing."
+		Settings.CreateCheckbox(category, setting, tooltip)
+	end
+
+	-- CVar UnitTitle
+	do
+		local setting = Settings.RegisterAddOnSetting(
+			category,
+			"CVarUnitTitle",
+			"CVarUnitTitle",
+			Config,
+			type(Addon.ConfigDefaults.CVarUnitTitle),
+			"CVar: Players Titles",
+			Addon.ConfigDefaults.CVarUnitTitle
+		)
+		setting:SetValueChangedCallback(Addon.OnSettingChange)
+		local tooltip = "Show title of players."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
