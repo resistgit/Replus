@@ -50,7 +50,7 @@ local function saveSlots(set, slots)
 	C_EquipmentSet.ClearIgnoredSlotsForSave()
 	C_EquipmentSet.CreateEquipmentSet(set)
 	for i = 1, 19 do
-		if slots[i] == nil then
+		if slots[i] ~= true then
 			C_EquipmentSet.IgnoreSlotForSave(i)
 		end
 	end
@@ -58,11 +58,11 @@ local function saveSlots(set, slots)
 end
 
 SLASH_SAVEWEAPONS1 = "/savew"
-SLASH_SAVEWEAPONS1 = "/savewp"
+SLASH_SAVEWEAPONS2 = "/savewp"
 SLASH_SAVEWEAPONS3 = "/saveweapon"
 SLASH_SAVEWEAPONS4 = "/saveweapons"
 SlashCmdList["SAVEWEAPONS"] = function(set)
-	saveSlots(set, { 16, 17 })
+	saveSlots(set, { [16] = true, [17] = true })
 	DEFAULT_CHAT_FRAME:AddMessage("|cffffff00[Replus]|r |cff00ff00" .. set .. "|r weapons set saved")
 end
 
@@ -83,7 +83,7 @@ local function parseSlots(opts)
 				return nil, nil
 			end
 
-			slots[slot] = 0
+			slots[slot] = true
 		end
 		i = i + 1
 	end
