@@ -1,7 +1,6 @@
 local _, Addon = ...
 
-local module = Addon.NewModule()
-function module.OnLoad()
+local function register()
 	local category, layout = Settings.RegisterVerticalLayoutCategory("Replus")
 	Settings.RegisterAddOnCategory(category)
 	Addon.SettingsCategoryId = category:GetID()
@@ -13,7 +12,7 @@ function module.OnLoad()
 			"AnnounceInterrupt",
 			"AnnounceInterrupt",
 			Config,
-			type(Addon.ConfigDefaults.AnnounceInterrupt),
+			Settings.VarType.Boolean,
 			"Announce: Interrupt",
 			Addon.ConfigDefaults.AnnounceInterrupt
 		)
@@ -28,7 +27,7 @@ function module.OnLoad()
 			"AnnounceMiss",
 			"AnnounceMiss",
 			Config,
-			type(Addon.ConfigDefaults.AnnounceMiss),
+			Settings.VarType.Boolean,
 			"Announce: Spell Miss",
 			Addon.ConfigDefaults.AnnounceMiss
 		)
@@ -43,7 +42,7 @@ function module.OnLoad()
 			"AutoTrack",
 			"AutoTrack",
 			Config,
-			type(Addon.ConfigDefaults.AutoTrack),
+			Settings.VarType.Boolean,
 			"Auto Track Herbs/Minerals",
 			Addon.ConfigDefaults.AutoTrack
 		)
@@ -58,7 +57,7 @@ function module.OnLoad()
 			"ShamanBlue",
 			"ShamanBlue",
 			Config,
-			type(Addon.ConfigDefaults.ShamanBlue),
+			Settings.VarType.Boolean,
 			"Blue Shaman",
 			Addon.ConfigDefaults.ShamanBlue
 		)
@@ -72,7 +71,7 @@ function module.OnLoad()
 			"ChatShortChannel",
 			"ChatShortChannel",
 			Config,
-			type(Addon.ConfigDefaults.ChatShortChannel),
+			Settings.VarType.Boolean,
 			"Chat: Short Channel Names",
 			Addon.ConfigDefaults.ChatShortChannel
 		)
@@ -88,7 +87,7 @@ function module.OnLoad()
 			"ChatURL",
 			"ChatURL",
 			Config,
-			type(Addon.ConfigDefaults.ChatURL),
+			Settings.VarType.Boolean,
 			"Chat: Clickable URLs",
 			Addon.ConfigDefaults.ChatURL
 		)
@@ -103,7 +102,7 @@ function module.OnLoad()
 			"ServerTick",
 			"ServerTick",
 			Config,
-			type(Addon.ConfigDefaults.ServerTick),
+			Settings.VarType.Boolean,
 			"Energy/Mana Tick",
 			Addon.ConfigDefaults.ServerTick
 		)
@@ -118,7 +117,7 @@ function module.OnLoad()
 			"MacroFoodDrink",
 			"MacroFoodDrink",
 			Config,
-			type(Addon.ConfigDefaults.MacroFoodDrink),
+			Settings.VarType.Boolean,
 			"Macro: Food/Drink",
 			Addon.ConfigDefaults.MacroFoodDrink
 		)
@@ -133,7 +132,7 @@ function module.OnLoad()
 			"MacroHealthstone",
 			"MacroHealthstone",
 			Config,
-			type(Addon.ConfigDefaults.MacroHealthstone),
+			Settings.VarType.Boolean,
 			"Macro: Healthstone",
 			Addon.ConfigDefaults.MacroHealthstone
 		)
@@ -148,7 +147,7 @@ function module.OnLoad()
 			"MeleeCheck",
 			"MeleeCheck",
 			Config,
-			type(Addon.ConfigDefaults.MeleeCheck),
+			Settings.VarType.Boolean,
 			"Melee Check",
 			Addon.ConfigDefaults.MeleeCheck
 		)
@@ -159,7 +158,7 @@ function module.OnLoad()
 			"MeleeCheckFontSize",
 			"MeleeCheckFontSize",
 			Config,
-			type(Addon.ConfigDefaults.MeleeCheckFontSize),
+			Settings.VarType.Number,
 			"Melee Check: Font Size",
 			Addon.ConfigDefaults.MeleeCheckFontSize
 		)
@@ -181,7 +180,7 @@ function module.OnLoad()
 			"StatusBar",
 			"StatusBar",
 			Config,
-			type(Addon.ConfigDefaults.StatusBar),
+			Settings.VarType.Boolean,
 			"Status Bar",
 			Addon.ConfigDefaults.StatusBar
 		)
@@ -192,7 +191,7 @@ function module.OnLoad()
 			"StatusBarFontSize",
 			"StatusBarFontSize",
 			Config,
-			type(Addon.ConfigDefaults.StatusBarFontSize),
+			Settings.VarType.Number,
 			"Status Bar: Font Size",
 			Addon.ConfigDefaults.StatusBarFontSize
 		)
@@ -207,6 +206,8 @@ function module.OnLoad()
 		layout:AddInitializer(initializer)
 	end
 
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Hidden Game Options"))
+
 	-- Target Health
 	do
 		local setting = Settings.RegisterAddOnSetting(
@@ -214,7 +215,7 @@ function module.OnLoad()
 			"TargetHealth",
 			"TargetHealth",
 			Config,
-			type(Addon.ConfigDefaults.TargetHealth),
+			Settings.VarType.Boolean,
 			"Target Health",
 			Addon.ConfigDefaults.TargetHealth
 		)
@@ -222,19 +223,49 @@ function module.OnLoad()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
-	-- CVar Preview Talents
+	-- Preview Talents
 	do
-		local setting = Settings.RegisterCVarSetting(
-			category, "previewTalentsOption", "boolean", "CVar: Preview Talents"
+		local function getter()
+			return GetCVarBool("previewTalentsOption")
+		end
+
+		local function setter(value)
+			return SetCVar("previewTalentsOption", value)
+		end
+
+		local defaultValue = true
+		local setting = Settings.RegisterProxySetting(
+			category,
+			"ProxyPreviewTalentsOption",
+			Settings.VarType.Boolean,
+			"Preview Talents",
+			defaultValue,
+			getter,
+			setter
 		)
 		local tooltip = "Allows to plan character talent builds before committing."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
-	-- CVar Players Titles
+	-- Players Titles
 	do
-		local setting = Settings.RegisterCVarSetting(
-			category, "UnitNamePlayerPVPTitle", "boolean", "CVar: Players Titles"
+		local function getter()
+			return GetCVarBool("unitNamePlayerPVPTitle")
+		end
+
+		local function setter(value)
+			return SetCVar("unitNamePlayerPVPTitle", value)
+		end
+
+		local defaultValue = true
+		local setting = Settings.RegisterProxySetting(
+			category,
+			"ProxyUnitNamePlayerPVPTitle",
+			Settings.VarType.Boolean,
+			"Players Titles",
+			defaultValue,
+			getter,
+			setter
 		)
 		local tooltip = "Show title of all players."
 		Settings.CreateCheckbox(category, setting, tooltip)
@@ -252,3 +283,5 @@ function module.OnLoad()
 		layout:AddInitializer(initializer)
 	end
 end
+
+SettingsRegistrar:AddRegistrant(register)
