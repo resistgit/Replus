@@ -1,0 +1,7 @@
+{
+  "ignore": ["Libs/"],
+  "flavors": ["classic", "classic_era"],
+  "diagnostics": {
+    "enable": ["need-check-nil"]
+  }
+}
