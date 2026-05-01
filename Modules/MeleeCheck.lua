@@ -7,7 +7,7 @@ function module.OnLoad()
 	local INTERVAL = 0.4
 	local ID_ATTACK = 6603
 	local ID_5YD_RANGE = 16114
-	local COLOR_YELLOW = CreateColor(0.9, 0.4, 0) -- yellow
+	local COLOR_YELLOW = CreateColor(0.9, 0.7, 0) -- yellow
 	local COLOR_RED = CreateColor(0.9, 0.3, 0.1) -- red
 
 	local _, class = UnitClass("player")
@@ -34,14 +34,14 @@ function module.OnLoad()
 		local mustAttack = class == "WARRIOR" or class == "ROGUE"
 
 		if mustAttack and not attacking then
-			text:SetTextColor(COLOR_YELLOW:GetRGBA())
+			text:SetTextColor(COLOR_RED:GetRGBA())
 			text:SetText("NOT ATTACKING")
 			text:Show()
 			return
 		end
 
 		if attacking and not inRange then
-			text:SetTextColor(COLOR_RED:GetRGBA())
+			text:SetTextColor(COLOR_YELLOW:GetRGBA())
 			text:SetText("TOO FAR")
 			text:Show()
 			return
