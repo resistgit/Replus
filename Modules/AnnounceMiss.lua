@@ -32,6 +32,7 @@ function module.OnLoad()
 		5384, -- Feign Death
 		19386, -- Wyvern Sting
 		19503, -- Scatter Shot
+		19577, -- Intimidation
 		19801, -- Tranquilizing Shot
 		34490, -- Silencing Shot
 
