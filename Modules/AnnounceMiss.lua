@@ -2,7 +2,9 @@ local _, Addon = ...
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if not Config.AnnounceMiss then return end
+	if not Config.AnnounceMiss then
+		return
+	end
 
 	local spellIds = {
 		-- Rogue
@@ -58,35 +60,37 @@ function module.OnLoad()
 		end
 	end
 
-
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	f:SetScript("OnEvent", function()
-		local flags = LE_PARTY_CATEGORY_HOME
-		if not IsInGroup(flags) and not IsInRaid(flags) then return end
+		if Addon.InPvPInstance() then
+			return
+		end
+
+		if not Addon.InHomeGroup() and not Addon.InHomeRaid() then
+			return
+		end
 
 		-- See: https://wowpedia.fandom.com/wiki/COMBAT_LOG_EVENT
-		local log = ({ CombatLogGetCurrentEventInfo() })
+		local log = { CombatLogGetCurrentEventInfo() }
 		local event = log[2]
 		local sourceGUID = log[4]
 		local spellName = log[13]
 		local missType = log[15]
 
-		if (event ~= "SPELL_MISSED") then return end
-		if (sourceGUID ~= UnitGUID("player") and sourceGUID ~= UnitGUID("pet")) then return end
-		if (not spellNames[spellName]) then return end
-
-		local msg = ">> " .. spellName .. " " .. missType .. " <<"
-
-		local channel
-		if IsInInstance() then
-			channel = "SAY"
-		elseif IsInRaid(flags) then
-			channel = "RAID"
-		else
-			channel = "PARTY"
+		if event ~= "SPELL_MISSED" then
+			return
 		end
 
-		C_ChatInfo.SendChatMessage(msg, channel)
+		if sourceGUID ~= UnitGUID("player") and sourceGUID ~= UnitGUID("pet") then
+			return
+		end
+
+		if not spellNames[spellName] then
+			return
+		end
+
+		local msg = ">> " .. spellName .. " " .. missType .. " <<"
+		C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
 	end)
 end

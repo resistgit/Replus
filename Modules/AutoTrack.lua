@@ -2,8 +2,13 @@ local _, Addon = ...
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if Addon.IsTBC then return end
-	if not Config.AutoTrack then return end
+	if Addon.IsTBC then
+		return
+	end
+
+	if not Config.AutoTrack then
+		return
+	end
 
 	local FIND_MINERALS_ID = 2580
 	local FIND_HERBS_ID = 2383
@@ -12,10 +17,13 @@ function module.OnLoad()
 	f:RegisterEvent("PLAYER_UNGHOST")
 	f:RegisterEvent("PLAYER_ALIVE")
 	f:SetScript("OnEvent", function()
-		local _, instType = IsInInstance()
-		if instType == "pvp" or instType == "arena" then return end
+		if Addon.InPvPInstance() then
+			return
+		end
 
-		if GetTrackingTexture() ~= nil then return end
+		if GetTrackingTexture() ~= nil then
+			return
+		end
 
 		-- Find Minerals
 		if C_SpellBook.IsSpellInSpellBook(FIND_MINERALS_ID) then
