@@ -34,7 +34,9 @@ local prio = {
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if not Config.MacroHealthstone then return end
+	if not Config.MacroHealthstone then
+		return
+	end
 
 	local macroName = "ReplusHS"
 	local icon = "INV_MISC_QUESTIONMARK"
@@ -45,7 +47,7 @@ function module.OnLoad()
 
 		for _, itemId in ipairs(prio) do
 			if bagItems[itemId] then
-				local body = "#showtooltip\n/use item:" .. itemId
+				local body = "#showtooltip\n/stopcasting\n/use item:" .. itemId
 				local macroId = GetMacroIndexByName(macroName)
 				if macroId > 0 then
 					EditMacro(macroId, macroName, icon, body)
@@ -66,8 +68,13 @@ function module.OnLoad()
 	end)
 
 	C_Timer.NewTicker(0.4, function()
-		if not pending then return end
-		if InCombatLockdown() then return end
+		if not pending then
+			return
+		end
+
+		if InCombatLockdown() then
+			return
+		end
 
 		update()
 		pending = false

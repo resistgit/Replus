@@ -68,8 +68,13 @@ local drinkPrio = {
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if not Config.MacroFoodDrink then return end
-	if UnitLevel("player") < 55 then return end
+	if not Config.MacroFoodDrink then
+		return
+	end
+
+	if UnitLevel("player") < 55 then
+		return
+	end
 
 	local macroNameFood = "ReplusFood"
 	local macroNameDrink = "ReplusDrink"
@@ -116,8 +121,13 @@ function module.OnLoad()
 	end)
 
 	C_Timer.NewTicker(0.4, function()
-		if not pending then return end
-		if InCombatLockdown() then return end
+		if not pending then
+			return
+		end
+
+		if InCombatLockdown() then
+			return
+		end
 
 		update()
 		pending = false

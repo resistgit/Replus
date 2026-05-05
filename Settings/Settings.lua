@@ -75,8 +75,7 @@ local function register()
 			"Chat: Short Channel Names",
 			Addon.ConfigDefaults.ChatShortChannel
 		)
-		local tooltip =
-		"Replace 'Trade' with 'T', 'LookingForGroup' with 'LFG', etc., may not work with other chat addon."
+		local tooltip = "Replace 'Trade' with 'T', 'LookingForGroup' with 'LFG', etc., may not work with other chat addon."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
@@ -168,8 +167,14 @@ local function register()
 		local sliderTooltip = "Melee check font size."
 
 		local initializer = CreateSettingsCheckboxSliderInitializer(
-			cbSetting, "Melee Check", cbTooltip,
-			sliderSetting, options, "Melee Check", sliderTooltip)
+			cbSetting,
+			"Melee Check",
+			cbTooltip,
+			sliderSetting,
+			options,
+			"Melee Check",
+			sliderTooltip
+		)
 		layout:AddInitializer(initializer)
 	end
 
@@ -201,8 +206,14 @@ local function register()
 		local sliderTooltip = "Status bar font size."
 
 		local initializer = CreateSettingsCheckboxSliderInitializer(
-			cbSetting, "Status Bar", cbTooltip,
-			sliderSetting, options, "Status Bar", sliderTooltip)
+			cbSetting,
+			"Status Bar",
+			cbTooltip,
+			sliderSetting,
+			options,
+			"Status Bar",
+			sliderTooltip
+		)
 		layout:AddInitializer(initializer)
 	end
 
@@ -273,13 +284,9 @@ local function register()
 
 	-- Reload button
 	do
-		local initializer = CreateSettingsButtonInitializer(
-			"Reload UI",
-			"Reload",
-			function() ReloadUI() end,
-			"Apply settings and reload interface.",
-			false
-		)
+		local initializer = CreateSettingsButtonInitializer("Reload UI", "Reload", function()
+			ReloadUI()
+		end, "Apply settings and reload interface.", false)
 		layout:AddInitializer(initializer)
 	end
 end

@@ -2,10 +2,14 @@ local _, Addon = ...
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if not Config.ServerTick then return end
+	if not Config.ServerTick then
+		return
+	end
 
 	local _, class = UnitClass("player")
-	if class == "WARRIOR" then return end
+	if class == "WARRIOR" then
+		return
+	end
 
 	local TICK_INTERVAL = 2
 	local lastPower = UnitPower("player")
@@ -14,15 +18,21 @@ function module.OnLoad()
 	local enabled = false
 
 	local function tickHandler(self, _, unit, type)
-		if unit ~= "player" then return end
-		if type == "RAGE" then return end
+		if unit ~= "player" then
+			return
+		end
+		if type == "RAGE" then
+			return
+		end
 
 		local ts = GetTime()
 		local currPower = UnitPower("player")
 		local maxPower = UnitPowerMax("player")
 		local fullPower = currPower >= maxPower
 
-		if fullPower then return end
+		if fullPower then
+			return
+		end
 
 		local hasGained = currPower > lastPower
 		local isAligned = ts - lastTick > TICK_INTERVAL - 0.25
@@ -40,7 +50,9 @@ function module.OnLoad()
 	end
 
 	local function updateHandler(self)
-		if not enabled then return end
+		if not enabled then
+			return
+		end
 
 		local ts = GetTime()
 

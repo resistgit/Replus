@@ -46,7 +46,9 @@ end
 ---@param n number
 ---@return number
 function Addon.Round(n)
-	if not n then return 0 end
+	if not n then
+		return 0
+	end
 
 	if n < 0 then
 		return math.ceil(n - 0.5)
@@ -85,4 +87,46 @@ function Addon.BagItems()
 	end
 
 	return items
+end
+
+--- Returns if player is in home-realm group.
+---@return boolean
+function Addon.InHomeGroup()
+	local flags = LE_PARTY_CATEGORY_HOME
+	return IsInGroup(flags)
+end
+
+--- Returns if player is in home-realm raid.
+---@return boolean
+function Addon.InHomeRaid()
+	local flags = LE_PARTY_CATEGORY_HOME
+	return IsInRaid(flags)
+end
+
+---@return boolean
+function Addon.InPvPInstance()
+	local inside, type = IsInInstance()
+	if not inside then
+		return false
+	end
+
+	return type == "pvp" or type == "arena"
+end
+
+--- Returns "SAY", "RAID" or "GROUP" depending on group and instance type.
+---@return string
+function Addon.ChannelToSend()
+	if IsInInstance() then
+		return "SAY"
+	end
+
+	if IsInRaid() then
+		return "RAID"
+	end
+
+	if IsInGroup() then
+		return "PARTY"
+	end
+
+	return "SAY"
 end

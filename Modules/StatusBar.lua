@@ -2,7 +2,9 @@ local _, Addon = ...
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if not Config.StatusBar then return end
+	if not Config.StatusBar then
+		return
+	end
 
 	local _, class = UnitClass("player")
 	local classColor = RAID_CLASS_COLORS[class]
@@ -64,7 +66,9 @@ function module.OnLoad()
 					maximumSum = maximumSum + maximum
 				end
 			end
-			if maximumSum == 0 then return end
+			if maximumSum == 0 then
+				return
+			end
 
 			local durability = currentSum / maximumSum * 100
 			local hex = durability <= 25 and "ff3232" or defaultHex
@@ -91,7 +95,9 @@ function module.OnLoad()
 
 	-- XP/h
 	local function setupXpHour()
-		if Addon.IsMaxLevel("player") then return end
+		if Addon.IsMaxLevel("player") then
+			return
+		end
 
 		local started = GetServerTime()
 		local xpGainedTotal = 0
@@ -112,7 +118,9 @@ function module.OnLoad()
 		end)
 
 		local function update()
-			if Addon.IsMaxLevel("player") then return end
+			if Addon.IsMaxLevel("player") then
+				return
+			end
 
 			local xp = UnitXP("player")
 			local xpGained = xp - xpPrevious
@@ -155,7 +163,9 @@ function module.OnLoad()
 		end)
 
 		xpHourText:SetScript("OnMouseDown", function(self, btn)
-			if btn ~= "LeftButton" then return end
+			if btn ~= "LeftButton" then
+				return
+			end
 
 			started = GetServerTime()
 			xpGainedTotal = 0

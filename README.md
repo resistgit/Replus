@@ -24,6 +24,7 @@ Download from CurseForge: https://www.curseforge.com/wow/addons/replus
 - Melee check, out of range and/or not attacking
 - Smart macros for Food, Drink and Healthstone, to use the best available
 - Status bar with FPS, latency, durability, current speed, and XP/h
+- And more...
 
 ### Equipment Manager helper
 

@@ -2,7 +2,9 @@ local _, Addon = ...
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if not Config.MeleeCheck then return end
+	if not Config.MeleeCheck then
+		return
+	end
 
 	local INTERVAL = 0.4
 	local ID_ATTACK = 6603

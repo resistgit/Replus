@@ -2,24 +2,26 @@ local _, Addon = ...
 
 local module = Addon.NewModule()
 function module.OnLoad()
-	if not Config.ChatShortChannel then return end
+	if not Config.ChatShortChannel then
+		return
+	end
 
 	local channels = {
-		{ "[%1]",  "%[%d+%. General %- (.+)[^%]]*%]" },
-		{ "[T]",   "%[%d+%. Trade[^%]]*%]" },
-		{ "[WD]",  "%[%d+%. WorldDefense[^%]]*%]" },
-		{ "[LD]",  "%[%d+%. LocalDefense[^%]]*%]" },
+		{ "[%1]", "%[%d+%. General %- (.+)[^%]]*%]" },
+		{ "[T]", "%[%d+%. Trade[^%]]*%]" },
+		{ "[WD]", "%[%d+%. WorldDefense[^%]]*%]" },
+		{ "[LD]", "%[%d+%. LocalDefense[^%]]*%]" },
 		{ "[LFG]", "%[%d+%. LookingForGroup[^%]]*%]" },
-		{ "[I]",   gsub(CHAT_INSTANCE_CHAT_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[IL]",  gsub(CHAT_INSTANCE_CHAT_LEADER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[G]",   gsub(CHAT_GUILD_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[P]",   gsub(CHAT_PARTY_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[PL]",  gsub(CHAT_PARTY_LEADER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[O]",   gsub(CHAT_OFFICER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[R]",   gsub(CHAT_RAID_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[RL]",  gsub(CHAT_RAID_LEADER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[RW]",  gsub(CHAT_RAID_WARNING_GET, ".*%[(.*)%].*", "%%[%1%%]") },
-		{ "[%1]",  "%[(%d+)%. ([^%]]+)%]" },
+		{ "[I]", gsub(CHAT_INSTANCE_CHAT_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[IL]", gsub(CHAT_INSTANCE_CHAT_LEADER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[G]", gsub(CHAT_GUILD_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[P]", gsub(CHAT_PARTY_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[PL]", gsub(CHAT_PARTY_LEADER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[O]", gsub(CHAT_OFFICER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[R]", gsub(CHAT_RAID_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[RL]", gsub(CHAT_RAID_LEADER_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[RW]", gsub(CHAT_RAID_WARNING_GET, ".*%[(.*)%].*", "%%[%1%%]") },
+		{ "[%1]", "%[(%d+)%. ([^%]]+)%]" },
 	}
 
 	local ogAddMessages = {}
