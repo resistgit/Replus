@@ -47,7 +47,10 @@ function module.OnLoad()
 
 		for _, itemId in ipairs(prio) do
 			if bagItems[itemId] then
-				local body = "#showtooltip\n/stopcasting\n/use item:" .. itemId
+				local body = string.format(
+					"#showtooltip\n/stopcasting\n/use item:%s\n/use item:22105\n/use item:22104\n/use item:22103",
+					itemId
+				)
 				local macroId = GetMacroIndexByName(macroName)
 				if macroId > 0 then
 					EditMacro(macroId, macroName, icon, body)
