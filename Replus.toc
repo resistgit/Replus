@@ -9,7 +9,7 @@
 ## OptionalDeps: Leatrix_Plus
 
 Core/Main.lua
-Core/Utils.lua
+Core/Util.lua
 
 Settings/Settings.lua
 
