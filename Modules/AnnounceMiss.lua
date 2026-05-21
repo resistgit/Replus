@@ -54,6 +54,8 @@ function module.OnLoad()
 	-- Localized spell names (for non-english clients)
 	local spellNames = Addon.SpellNames(spellIds)
 
+	local playerGUID = UnitGUID("player")
+
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	f:SetScript("OnEvent", function()
@@ -65,26 +67,21 @@ function module.OnLoad()
 			return
 		end
 
-		-- See: https://wowpedia.fandom.com/wiki/COMBAT_LOG_EVENT
-		local log = { CombatLogGetCurrentEventInfo() }
-		local event = log[2]
-		local sourceGUID = log[4]
-		local spellName = log[13]
-		local missType = log[15]
+		local info = Addon.GetCLEUInfoSpellMiss()
 
-		if event ~= "SPELL_MISSED" then
+		if info.subevent ~= "SPELL_MISSED" then
 			return
 		end
 
-		if sourceGUID ~= UnitGUID("player") and sourceGUID ~= UnitGUID("pet") then
+		if info.sourceGUID ~= playerGUID and info.sourceGUID ~= UnitGUID("pet") then
 			return
 		end
 
-		if not spellNames[spellName] then
+		if not spellNames[info.spellName] then
 			return
 		end
 
-		local msg = ">> " .. spellName .. " " .. missType .. " <<"
+		local msg = format(">> %s %s << ", info.spellName, info.displayText)
 		C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
 	end)
 end

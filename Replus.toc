@@ -10,6 +10,7 @@
 
 Core/Main.lua
 Core/Util.lua
+Core/CLEU.lua
 
 Settings/Settings.lua
 
