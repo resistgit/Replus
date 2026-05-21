@@ -122,3 +122,17 @@ function Addon.ChannelToSend()
 
 	return "SAY"
 end
+
+---Returns all the localized spell names in a map based on any rank of the spell id.
+---@param spellIds number[]
+---@return table<string, boolean>
+function Addon.SpellNames(spellIds)
+	local spellNames = {}
+	for _, id in ipairs(spellIds) do
+		local info = C_Spell.GetSpellInfo(id)
+		if info then
+			spellNames[info.name] = true
+		end
+	end
+	return spellNames
+end

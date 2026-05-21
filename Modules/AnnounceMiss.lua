@@ -51,14 +51,8 @@ function module.OnLoad()
 		20066, -- Repentance
 	}
 
-	-- Save localized spell names (for non-english clients)
-	local spellNames = {}
-	for _, id in ipairs(spellIds) do
-		local info = C_Spell.GetSpellInfo(id)
-		if info.name ~= nil then
-			spellNames[info.name] = true
-		end
-	end
+	-- Localized spell names (for non-english clients)
+	local spellNames = Addon.SpellNames(spellIds)
 
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
