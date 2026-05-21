@@ -13,7 +13,7 @@ function module.OnLoad()
 			return
 		end
 
-		if not Addon.InHomeGroup() and not Addon.InHomeRaid() then
+		if not Addon.InGroupOrRaid() then
 			return
 		end
 

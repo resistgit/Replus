@@ -89,18 +89,10 @@ function Addon.BagItems()
 	return items
 end
 
---- Returns if player is in home-realm group.
+--- Returns if player is in any kind of group or raid.
 ---@return boolean
-function Addon.InHomeGroup()
-	local flags = LE_PARTY_CATEGORY_HOME
-	return IsInGroup(flags)
-end
-
---- Returns if player is in home-realm raid.
----@return boolean
-function Addon.InHomeRaid()
-	local flags = LE_PARTY_CATEGORY_HOME
-	return IsInRaid(flags)
+function Addon.InGroupOrRaid()
+	return IsInGroup() or IsInRaid()
 end
 
 ---@return boolean
