@@ -8,6 +8,7 @@ function Addon.IsMaxLevel(unit)
 end
 
 ---@param secs number
+---@return string
 function Addon.FormatTime(secs)
 	local NINETY_MINUTES = 5400
 	local ONE_DAY = 86400
@@ -31,7 +32,18 @@ function Addon.FormatTime(secs)
 	return format("%ds", secs)
 end
 
+---@param n number
+---@return string
+function Addon.FormatNumber(n)
+	if n >= 1000 then
+		return format("%.1fk", n)
+	end
+
+	return format("%d", n)
+end
+
 ---@param value number
+---@return boolean
 function Addon.IsInf(value)
 	return value == math.huge or value == -math.huge
 end
@@ -39,6 +51,7 @@ end
 ---@param value number
 ---@param min number
 ---@param max number
+---@return number
 function Addon.Clamp(value, min, max)
 	return math.min(max, math.max(min, value))
 end

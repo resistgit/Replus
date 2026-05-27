@@ -16,7 +16,7 @@ local function register()
 			"Announce: Interrupt",
 			Addon.ConfigDefaults.AnnounceInterrupt
 		)
-		local tooltip = "Announce on group after interrupting spells."
+		local tooltip = "Announce on group after interrupting or reflecting spells."
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 

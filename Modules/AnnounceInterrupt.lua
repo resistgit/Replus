@@ -25,6 +25,32 @@ function module.OnLoad()
 		C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
 	end
 
+	local function announceSpellReflect()
+		local info = Addon.GetCLEUInfoSpellMiss()
+
+		if info.subevent ~= "SPELL_MISSED" then
+			return
+		end
+
+		if info.destGUID ~= playerGUID then
+			return
+		end
+
+		if info.missType ~= "REFLECT" then
+			return
+		end
+
+		local spell = GetSpellLink(info.spellId) or info.spellName
+
+		if info.amountMissed > 0 then
+			local msg = format("%s %s for %s", info.displayText, spell, Addon.FormatNumber(info.amountMissed))
+			C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
+		end
+
+		local msg = format("%s %s", info.displayText, spell)
+		C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
+	end
+
 	local f = CreateFrame("Frame")
 	f:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	f:SetScript("OnEvent", function()
@@ -37,5 +63,6 @@ function module.OnLoad()
 		end
 
 		announceInterrupt()
+		announceSpellReflect()
 	end)
 end
