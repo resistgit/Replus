@@ -20,7 +20,7 @@ function module.OnLoad()
 			return
 		end
 
-		local isPlayerOrPet = UnitIsPlayer(unit) or UnitGUID(unit):find("Pet")
+		local isPlayerOrPet = UnitIsPlayer(unit) or UnitIsOtherPlayersPet(unit)
 		local isInGroup = UnitPlayerOrPetInRaid(unit) or UnitPlayerOrPetInParty(unit)
 		if isPlayerOrPet and not isInGroup then
 			return
