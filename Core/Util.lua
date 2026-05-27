@@ -35,11 +35,11 @@ end
 ---@param n number
 ---@return string
 function Addon.FormatNumber(n)
-	if n >= 1000 then
-		return format("%.1fk", n)
+	if n < 1000 then
+		return format("%d", n)
 	end
 
-	return format("%d", n)
+	return format("%.1fk", n / 1000)
 end
 
 ---@param value number

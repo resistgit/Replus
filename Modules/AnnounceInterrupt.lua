@@ -45,6 +45,7 @@ function module.OnLoad()
 		if info.amountMissed > 0 then
 			local msg = format("%s %s for %s", info.displayText, spell, Addon.FormatNumber(info.amountMissed))
 			C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
+			return
 		end
 
 		local msg = format("%s %s", info.displayText, spell)
