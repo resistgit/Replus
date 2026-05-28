@@ -3,7 +3,8 @@ local _, Addon = ...
 local em = C_EquipmentSet
 
 local REPLUS = "|cffffff00[Replus]|r"
-local SETNAME = "|cff00ff00%s|r"
+local SET_INFO = "- |cff00ff00%s|r items=%d"
+local SET_INFO_MISSING = "- |cff00ff00%s|r items=%d missing=%d"
 local SET_SAVED = "|cffffff00[Replus]|r |cff00ff00%s|r set saved"
 local SET_NOT_FOUND = "|cffffff00[Replus]|r ERROR: |cff00ff00%s|r set not found"
 local SET_DELETED = "|cffffff00[Replus]|r |cff00ff00%s|r set deleted"
@@ -54,6 +55,52 @@ local function parseSlots(opts)
 	return set, slots
 end
 
+---@class SetInfo
+---@field id number
+---@field name string
+---@field icon number
+---@field isEquipped boolean
+---@field numItems number
+---@field numEquipped number
+---@field numInBags number
+---@field numLost number
+
+---@return SetInfo[]
+local function equipmentSets()
+	---@type SetInfo[]
+	local sets = {}
+	for _, id in ipairs(em.GetEquipmentSetIDs()) do
+		local name, icon, _, isEquipped, numItems, numEquipped, numInInv, numLost = em.GetEquipmentSetInfo(id)
+		---@type SetInfo
+		local set = {
+			id = id,
+			name = name,
+			icon = icon,
+			isEquipped = isEquipped,
+			numItems = numItems,
+			numEquipped = numEquipped,
+			numInBags = numInInv,
+			numLost = numLost,
+		}
+		table.insert(sets, set)
+	end
+
+	-- sort by full sets then alphabetically
+	table.sort(sets, function(a, b)
+		if a == nil or b == nil then
+			return false
+		end
+
+		if a.numItems ~= b.numItems then
+			return a.numItems > b.numItems
+		end
+
+		return string.lower(a.name) < string.lower(b.name)
+	end)
+
+	return sets
+end
+
 SLASH_REPLUS1 = "/replus"
 SlashCmdList["REPLUS"] = function()
 	Settings.OpenToCategory(Addon.SettingsCategoryId)
@@ -72,11 +119,14 @@ SLASH_SHOWSETS1 = "/showsets"
 SLASH_SHOWSETS2 = "/getsets"
 SLASH_SHOWSETS3 = "/allsets"
 SlashCmdList["SHOWSETS"] = function()
-	DEFAULT_CHAT_FRAME:AddMessage(REPLUS .. "showing all sets:")
+	DEFAULT_CHAT_FRAME:AddMessage(REPLUS .. " showing all sets:")
 
-	for _, id in pairs(em.GetEquipmentSetIDs()) do
-		local name = em.GetEquipmentSetInfo(id)
-		DEFAULT_CHAT_FRAME:AddMessage("- " .. SETNAME:format(name))
+	for _, set in ipairs(equipmentSets()) do
+		local msg = SET_INFO:format(set.name, set.numItems)
+		if set.numLost > 0 then
+			msg = SET_INFO_MISSING:format(set.name, set.numItems, set.numLost)
+		end
+		DEFAULT_CHAT_FRAME:AddMessage(msg)
 	end
 end
 
@@ -127,4 +177,62 @@ SlashCmdList["SAVESLOTS"] = function(opts)
 
 	saveSlots(set, slots)
 	DEFAULT_CHAT_FRAME:AddMessage(SET_SAVED:format(set))
+end
+
+---
+
+local module = Addon.NewModule()
+function module.OnLoad()
+	local dropdown = CreateFrame("Frame", "ReplusEquipSetDropdown", CharacterModelFrame, "UIDropDownMenuTemplate")
+
+	dropdown:SetPoint("TOPLEFT", CharacterModelFrame, "TOPLEFT", -14, -30)
+	UIDropDownMenu_SetWidth(dropdown, 60)
+
+	local function initDropdown()
+		local info = UIDropDownMenu_CreateInfo()
+
+		info.func = function(item)
+			UIDropDownMenu_SetSelectedValue(dropdown, item.value, false)
+			em.UseEquipmentSet(item.value)
+		end
+
+		local sets = equipmentSets()
+		for i, set in ipairs(sets) do
+			if set.numItems > 2 then
+				local prev = sets[i - 1]
+				if prev and prev.numItems > set.numItems then
+					UIDropDownMenu_AddSeparator()
+				end
+
+				info.value = set.id
+				info.checked = false
+				if set.numLost > 0 then
+					info.text = format("|cffff1919%s|r", set.name)
+				else
+					info.text = set.name
+				end
+				UIDropDownMenu_AddButton(info)
+			end
+		end
+	end
+
+	CharacterFrame:HookScript("OnShow", function()
+		if not (em.GetNumEquipmentSets() > 0) then
+			dropdown:Hide()
+			return
+		end
+
+		dropdown:Show()
+		UIDropDownMenu_Initialize(dropdown, initDropdown)
+
+		UIDropDownMenu_SetSelectedValue(dropdown, nil)
+		UIDropDownMenu_SetText(dropdown, "Set")
+
+		for _, set in ipairs(equipmentSets()) do
+			if set.numItems > 2 and set.isEquipped then
+				UIDropDownMenu_SetSelectedValue(dropdown, set.id, false)
+				break
+			end
+		end
+	end)
 end
