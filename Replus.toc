@@ -16,6 +16,7 @@ Settings/Settings.lua
 
 Modules/AnnounceInterrupt.lua
 Modules/AnnounceMiss.lua
+Modules/AnnounceTank.lua
 Modules/AutoTrack.lua
 Modules/ChatShortChannel.lua
 Modules/ChatURL.lua

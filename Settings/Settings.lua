@@ -35,6 +35,21 @@ local function register()
 		Settings.CreateCheckbox(category, setting, tooltip)
 	end
 
+	-- Announce Tank Protection
+	do
+		local setting = Settings.RegisterAddOnSetting(
+			category,
+			"AnnounceTank",
+			"AnnounceTank",
+			Config,
+			Settings.VarType.Boolean,
+			"Announce: Tank Protection",
+			Addon.ConfigDefaults.AnnounceTank
+		)
+		local tooltip = "Announce on group when CC'd, when missing spells at combat start, and when using AoE taunts."
+		Settings.CreateCheckbox(category, setting, tooltip)
+	end
+
 	-- Auto Track
 	if not Addon.IsTBC then
 		local setting = Settings.RegisterAddOnSetting(
@@ -216,8 +231,6 @@ local function register()
 		)
 		layout:AddInitializer(initializer)
 	end
-
-	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Hidden Game Options"))
 
 	-- Target Health
 	do

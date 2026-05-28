@@ -4,6 +4,7 @@ Addon.modules = {}
 Addon.ConfigDefaults = {
 	AnnounceInterrupt = true,
 	AnnounceMiss = true,
+	AnnounceTank = true,
 	AutoTrack = true,
 	ChatShortChannel = true,
 	ChatURL = true,

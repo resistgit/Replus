@@ -149,3 +149,25 @@ function Addon.SpellNames(spellIds)
 	end
 	return spellNames
 end
+
+---@return boolean
+function Addon.PlayerIsTank()
+	local class = UnitClassBase("player")
+	local formId = GetShapeshiftFormID()
+
+	local WARRIOR_DEF_STANCE_ID = 18
+	if class == "WARRIOR" and formId == WARRIOR_DEF_STANCE_ID then
+		return true
+	end
+
+	if class == "DRUID" and formId == BEAR_FORM then
+		return true
+	end
+
+	local RIGHTEOUS_FURY_ID = 25780
+	if class == "PALADIN" and C_UnitAuras.GetPlayerAuraBySpellID(RIGHTEOUS_FURY_ID) then
+		return true
+	end
+
+	return false
+end
