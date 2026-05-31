@@ -88,7 +88,7 @@ function module.OnLoad()
 	local playerGUID = UnitGUID("player")
 
 	local function announceAoETaunt()
-		local info = Addon.GetCLEUInfoSpell()
+		local info = Addon.GetCLEUInfo()
 
 		if info.sourceGUID ~= playerGUID then
 			return
@@ -98,7 +98,7 @@ function module.OnLoad()
 			return
 		end
 
-		if not aoeTauntSpellNames[info.spellName] then
+		if not aoeTauntSpellNames[info.sourceSpellName] then
 			return
 		end
 
@@ -136,7 +136,7 @@ function module.OnLoad()
 			return
 		end
 
-		local info = Addon.GetCLEUInfoSpellMiss()
+		local info = Addon.GetCLEUInfoMiss()
 
 		if info.sourceGUID ~= playerGUID then
 			return

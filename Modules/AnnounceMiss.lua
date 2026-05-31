@@ -67,7 +67,7 @@ function module.OnLoad()
 			return
 		end
 
-		local info = Addon.GetCLEUInfoSpellMiss()
+		local info = Addon.GetCLEUInfoMiss()
 
 		if info.subevent ~= "SPELL_MISSED" then
 			return
@@ -77,11 +77,11 @@ function module.OnLoad()
 			return
 		end
 
-		if not spellNames[info.spellName] then
+		if not spellNames[info.sourceSpellName] then
 			return
 		end
 
-		local msg = format(">> %s %s << ", info.spellName, info.displayText)
+		local msg = format(">> %s %s << ", info.sourceSpellName, info.displayText)
 		C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
 	end)
 end

@@ -47,62 +47,51 @@ local _, Addon = ...
 ---@field sourceName string
 ---@field sourceFlags number
 ---@field sourceRaidFlags number
+---@field sourceSpellId number
+---@field sourceSpellName string
+---@field sourceSpellSchool number
 ---@field destGUID string
 ---@field destName string
 ---@field destFlags number
 ---@field destRaidFlags number
 
----@class CLEUInfoSpell : CLEUInfo
----@field spellId number
----@field spellName string
----@field spellSchool number
-
----@class CLEUInfoSpellMiss : CLEUInfoSpell
+---@class CLEUInfoMiss : CLEUInfo
 ---@field missType CLEUMissType
 ---@field displayText string
 ---@field isOffHand boolean
 ---@field amountMissed number
 ---@field isCritical boolean
 
+---@class CLEUInfoInterrupt : CLEUInfo
+---@field destSpellId number
+---@field destSpellName string
+---@field destSpellSchool number
+
 ---@return CLEUInfo
 function Addon.GetCLEUInfo()
 	local log = { CombatLogGetCurrentEventInfo() }
 
-	return {
-		timestamp = log[1],
-		subevent = log[2],
-		hideCaster = log[3],
-		sourceGUID = log[4],
-		sourceName = log[5],
-		sourceFlags = log[6],
-		sourceRaidFlags = log[7],
-		destGUID = log[8],
-		destName = log[9],
-		destFlags = log[10],
-		destRaidFlags = log[11],
-	}
-end
+	local info = {}
+	info.timestamp = log[1]
+	info.subevent = log[2]
+	info.hideCaster = log[3]
+	info.sourceGUID = log[4]
+	info.sourceName = log[5]
+	info.sourceFlags = log[6]
+	info.sourceRaidFlags = log[7]
+	info.destGUID = log[8]
+	info.destName = log[9]
+	info.destFlags = log[10]
+	info.destRaidFlags = log[11]
 
----@return CLEUInfoSpell
-function Addon.GetCLEUInfoSpell()
-	local log = { CombatLogGetCurrentEventInfo() }
+	local prefix = string.sub(info.subevent, 1, 5)
+	if prefix == "SPELL" then
+		info.sourceSpellId = log[12]
+		info.sourceSpellName = log[13]
+		info.sourceSpellSchool = log[14]
+	end
 
-	return {
-		timestamp = log[1],
-		subevent = log[2],
-		hideCaster = log[3],
-		sourceGUID = log[4],
-		sourceName = log[5],
-		sourceFlags = log[6],
-		sourceRaidFlags = log[7],
-		destGUID = log[8],
-		destName = log[9],
-		destFlags = log[10],
-		destRaidFlags = log[11],
-		spellId = log[12],
-		spellName = log[13],
-		spellSchool = log[14],
-	}
+	return info
 end
 
 local missDisplayText = {
@@ -118,29 +107,64 @@ local missDisplayText = {
 	["RESIST"] = COMBAT_TEXT_RESIST,
 }
 
----@return CLEUInfoSpellMiss
-function Addon.GetCLEUInfoSpellMiss()
+---@return CLEUInfoMiss
+function Addon.GetCLEUInfoMiss()
 	local log = { CombatLogGetCurrentEventInfo() }
 
-	return {
-		timestamp = log[1],
-		subevent = log[2],
-		hideCaster = log[3],
-		sourceGUID = log[4],
-		sourceName = log[5],
-		sourceFlags = log[6],
-		sourceRaidFlags = log[7],
-		destGUID = log[8],
-		destName = log[9],
-		destFlags = log[10],
-		destRaidFlags = log[11],
-		spellId = log[12],
-		spellName = log[13],
-		spellSchool = log[14],
-		missType = log[15],
-		displayText = missDisplayText[log[15]],
-		isOffHand = log[16],
-		amountMissed = log[17],
-		isCritical = log[18],
-	}
+	local info = {}
+	info.timestamp = log[1]
+	info.subevent = log[2]
+	info.hideCaster = log[3]
+	info.sourceGUID = log[4]
+	info.sourceName = log[5]
+	info.sourceFlags = log[6]
+	info.sourceRaidFlags = log[7]
+	info.destGUID = log[8]
+	info.destName = log[9]
+	info.destFlags = log[10]
+	info.destRaidFlags = log[11]
+	info.missType = log[12]
+	info.displayText = missDisplayText[info.missType] or info.missType
+	info.isOffHand = log[13]
+	info.amountMissed = log[14]
+	info.isCritical = log[15]
+
+	if info.subevent == "SPELL_MISSED" then
+		info.sourceSpellId = log[12]
+		info.sourceSpellName = log[13]
+		info.sourceSpellSchool = log[14]
+		info.missType = log[15]
+		info.displayText = missDisplayText[info.missType] or info.missType
+		info.isOffHand = log[16]
+		info.amountMissed = log[17]
+		info.isCritical = log[18]
+	end
+
+	return info
+end
+
+---@return CLEUInfoInterrupt
+function Addon.GetCLEUInfoInterrupt()
+	local log = { CombatLogGetCurrentEventInfo() }
+
+	local info = {}
+	info.timestamp = log[1]
+	info.subevent = log[2]
+	info.hideCaster = log[3]
+	info.sourceGUID = log[4]
+	info.sourceName = log[5]
+	info.sourceFlags = log[6]
+	info.sourceRaidFlags = log[7]
+	info.destGUID = log[8]
+	info.destName = log[9]
+	info.destFlags = log[10]
+	info.destRaidFlags = log[11]
+	info.sourceSpellId = log[12]
+	info.sourceSpellName = log[13]
+	info.sourceSpellSchool = log[14]
+	info.destSpellId = log[15]
+	info.destSpellName = log[16]
+	info.destSpellSchool = log[17]
+
+	return info
 end

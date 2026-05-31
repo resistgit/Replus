@@ -9,7 +9,7 @@ function module.OnLoad()
 	local playerGUID = UnitGUID("player")
 
 	local function announceInterrupt()
-		local info = Addon.GetCLEUInfoSpell()
+		local info = Addon.GetCLEUInfoInterrupt()
 
 		if info.subevent ~= "SPELL_INTERRUPT" then
 			return
@@ -19,14 +19,14 @@ function module.OnLoad()
 			return
 		end
 
-		local spell = GetSpellLink(info.spellId) or info.spellName
+		local spell = GetSpellLink(info.destSpellId) or info.destSpellName
 
 		local msg = format("%s %s", INTERRUPTED, spell or info.destName)
 		C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
 	end
 
 	local function announceSpellReflect()
-		local info = Addon.GetCLEUInfoSpellMiss()
+		local info = Addon.GetCLEUInfoMiss()
 
 		if info.subevent ~= "SPELL_MISSED" then
 			return
@@ -40,7 +40,7 @@ function module.OnLoad()
 			return
 		end
 
-		local spell = GetSpellLink(info.spellId) or info.spellName
+		local spell = GetSpellLink(info.sourceSpellId) or info.sourceSpellName
 
 		if info.amountMissed > 0 then
 			local msg = format("%s %s for %s", info.displayText, spell, Addon.FormatNumber(info.amountMissed))
