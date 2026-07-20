@@ -23,6 +23,7 @@ function module.OnLoad()
 		5209, -- Challenging Roar
 	})
 
+	local CC_ANNOUNCE_THROTTLE = 1 -- seconds to throttle CC announces
 	local CC_LOCTYPE_BY_CLASS = {
 		["WARRIOR"] = {
 			["CHARM"] = true,
@@ -117,6 +118,8 @@ function module.OnLoad()
 		return nil
 	end
 
+	---@type table<string, number>
+	local announcedCCAt = {}
 	local function announceCC()
 		if not Addon.PlayerIsTank() then
 			return
@@ -127,8 +130,14 @@ function module.OnLoad()
 			return
 		end
 
+		local ts = GetTime()
+		if (ts - (announcedCCAt[cc.locType] or 0)) <= CC_ANNOUNCE_THROTTLE then
+			return
+		end
+
 		local msg = format(">> %s <<", cc.displayText)
 		C_ChatInfo.SendChatMessage(msg, Addon.ChannelToSend())
+		announcedCCAt[cc.locType] = ts
 	end
 
 	local function announceMiss()
