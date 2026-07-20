@@ -199,11 +199,6 @@ function module.OnLoad()
 		local sets = equipmentSets()
 		for i, set in ipairs(sets) do
 			if set.numItems > 2 then
-				local prev = sets[i - 1]
-				if prev and prev.numItems > set.numItems then
-					UIDropDownMenu_AddSeparator()
-				end
-
 				info.value = set.id
 				info.checked = false
 				if set.numLost > 0 then
