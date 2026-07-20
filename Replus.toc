@@ -1,6 +1,4 @@
-## Interface: 11508, 20505
-## Interface-Classic: 11508
-## Interface-TBC: 20505
+## Interface: 11508, 20506
 ## Version: @project-version@
 ## Title: Replus
 ## Notes: Quality of Life options missing from Classic WoW
