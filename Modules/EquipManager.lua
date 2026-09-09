@@ -198,16 +198,14 @@ function module.OnLoad()
 
 		local sets = equipmentSets()
 		for i, set in ipairs(sets) do
-			if set.numItems > 2 then
-				info.value = set.id
-				info.checked = false
-				if set.numLost > 0 then
-					info.text = format("|cffff1919%s|r", set.name)
-				else
-					info.text = set.name
-				end
-				UIDropDownMenu_AddButton(info)
+			info.value = set.id
+			info.checked = false
+			if set.numLost > 0 then
+				info.text = format("|cffff1919%s|r", set.name)
+			else
+				info.text = set.name
 			end
+			UIDropDownMenu_AddButton(info)
 		end
 	end
 
